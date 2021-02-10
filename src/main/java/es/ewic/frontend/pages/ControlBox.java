@@ -13,7 +13,9 @@ import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import es.ewic.frontend.model.Reservation;
 import es.ewic.frontend.model.Shop;
+import es.ewic.frontend.util.DateUtils;
 import es.ewic.frontend.util.ModelConverter;
 import es.ewic.frontend.util.RequestUtils;
 import es.ewic.frontend.util.UserSession;
@@ -37,6 +39,10 @@ public class ControlBox {
 
 	@Property
 	private Shop activeShop;
+	@Property
+	private List<Reservation> reservations;
+	@Property
+	private Reservation reservation;
 	@InjectComponent
 	private Zone activeShopArea;
 
@@ -61,6 +67,14 @@ public class ControlBox {
 		return messages.get(activeShop.getType());
 	}
 
+	public String getReservationDate() {
+		return DateUtils.formatDateLong(reservation.getDate());
+	}
+
+	public String getReservationState() {
+		return messages.get(reservation.getState());
+	}
+
 	void setupRender() {
 		if (userSession != null) {
 			System.out.println(userSession == null);
@@ -76,8 +90,10 @@ public class ControlBox {
 		System.out.println(idShop);
 
 		JSONObject shopData = RequestUtils.getShopById(idShop);
-
 		activeShop = ModelConverter.jsonToShop(shopData);
+
+		JSONArray reservatonsData = RequestUtils.getUpcomingReservations(idShop);
+		reservations = ModelConverter.jsonArrayToReservationList(reservatonsData);
 
 		ajaxResponseRenderer.addRender(activeShopArea);
 	}

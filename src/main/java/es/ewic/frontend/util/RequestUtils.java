@@ -87,7 +87,6 @@ public class RequestUtils {
 	}
 
 	public static JSONObject getShopById(int idShop) {
-
 		try {
 			URL url = new URL(BASE_ENDPOINT + "/shop/" + idShop);
 
@@ -107,6 +106,41 @@ public class RequestUtils {
 
 				JSONObject shopData = new JSONObject(content.toString());
 				return shopData;
+			}
+			con.disconnect();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static JSONArray getUpcomingReservations(int idShop) {
+		try {
+			URL url = new URL(BASE_ENDPOINT + "/reservation/seller/" + idShop);
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+
+			if (con.getResponseCode() == 200) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					content.append(inputLine);
+				}
+				in.close();
+				System.out.println(content.toString());
+
+				JSONArray reservationsData = new JSONArray(content.toString());
+				return reservationsData;
 			}
 			con.disconnect();
 		} catch (MalformedURLException e) {
