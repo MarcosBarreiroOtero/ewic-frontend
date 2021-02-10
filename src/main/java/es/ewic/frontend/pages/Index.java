@@ -62,9 +62,14 @@ public class Index {
 	}
 
 	void setupRender() {
+
+	}
+
+	Object afterRender() {
 		if (userSession != null) {
-			System.out.println("SESION INICIADA");
+			return ControlBox.class;
 		}
+		return null;
 	}
 
 }

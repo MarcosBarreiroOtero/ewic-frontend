@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
 public class RequestUtils {
@@ -16,9 +17,8 @@ public class RequestUtils {
 
 	public static JSONObject loginSeller(String username, String password) {
 
-		URL url;
 		try {
-			url = new URL(BASE_ENDPOINT + "/seller/login?loginName=" + username + "&password=" + password);
+			URL url = new URL(BASE_ENDPOINT + "/seller/login?loginName=" + username + "&password=" + password);
 
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -47,9 +47,79 @@ public class RequestUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
+	}
 
+	public static JSONArray getSellerShops(int idSeller) {
+
+		try {
+			URL url = new URL(BASE_ENDPOINT + "/shop/seller/" + idSeller);
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+
+			if (con.getResponseCode() == 200) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					content.append(inputLine);
+				}
+				in.close();
+				System.out.println(content.toString());
+
+				JSONArray shopsData = new JSONArray(content.toString());
+				return shopsData;
+			}
+			con.disconnect();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static JSONObject getShopById(int idShop) {
+
+		try {
+			URL url = new URL(BASE_ENDPOINT + "/shop/" + idShop);
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+
+			if (con.getResponseCode() == 200) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					content.append(inputLine);
+				}
+				in.close();
+				System.out.println(content.toString());
+
+				JSONObject shopData = new JSONObject(content.toString());
+				return shopData;
+			}
+			con.disconnect();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
