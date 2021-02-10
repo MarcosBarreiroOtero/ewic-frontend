@@ -1,21 +1,48 @@
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
-    <head>
-        <title>${title}</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <t:alerts/>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <t:body />
-            <hr />
-            <footer>
-                <p>&copy; Your Company</p>
-            </footer>
-        </div>
-    </body>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+<meta charset="utf-8" />
+<title>${title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous" />
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">${message:appName}</a>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<t:if test="userSession">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">${userSession.seller.loginName} <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" t:type="ActionLink" t:id="logout">${message:logout}</a></li>
+							</ul></li>
+
+						<p:else>
+							<li><a href="#" t:type="PageLink" t:page="index">${message:logIn}</a></li>
+						</p:else>
+					</t:if>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<div class="container-fluid">
+		<t:body />
+	</div>
+</body>
 </html>
