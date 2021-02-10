@@ -1,0 +1,76 @@
+<html t:type="layout" title="appName"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+
+
+<div class="row">
+	<div class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">
+				<h3>${message:myShops}</h3>
+			</div>
+			<div class="panel-body">
+				<t:loop source="shops" value="shop">
+					<div class="row justify-content-center">
+						<div class="col-sm-11">
+							<button type="button" class="btn btn-block btn-outline-primary">
+								<t:actionlink t:id="clickShop" t:async="true"
+									context="shop.idShop">${shop.name}</t:actionlink>
+
+							</button>
+						</div>
+					</div>
+				</t:loop>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<t:zone t:id="activeShopArea" id="activeShopArea">
+			<t:if test="activeShop">
+				<div class="panel panel-default">
+					<div class="panel-heading text-center">
+						<h3>${activeShop.name}</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row justify-content-center">
+							<div class="col-sm-6">
+								<h4>
+									${message:location}: <span class="${capacityColorClass}">${activeShop.location}</span>
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									${message:shopType}: <span class="${capacityColorClass}">${shopType}</span>
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									${message:state}:
+									<t:if test="activeShop.allowEntries">
+										<span class="text-success"> ${message:open} </span>
+										<p:else>
+											<span class="text-danger"> ${message:closed} </span>
+										</p:else>
+									</t:if>
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									${message:capacity}: <span class="${capacityColorClass}">${capacityControlState}</span>
+								</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p:else>
+					<div class="row justify-content-center">
+						<h4 class="text-center">${message:clickShopMessage}</h4>
+					</div>
+				</p:else>
+			</t:if>
+		</t:zone>
+	</div>
+</div>
+
+</html>
