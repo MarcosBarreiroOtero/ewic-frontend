@@ -63,7 +63,7 @@ public class ModelConverter {
 				entryData.getString("description"));
 	}
 
-	public static List<Entry> jsonArrayToEntruList(JSONArray entriesData) {
+	public static List<Entry> jsonArrayToEntryList(JSONArray entriesData) {
 		ArrayList<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < entriesData.length(); i++) {
 			JSONObject entryData = entriesData.getJSONObject(i);

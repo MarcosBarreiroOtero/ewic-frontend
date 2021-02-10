@@ -13,6 +13,7 @@ import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import es.ewic.frontend.model.Entry;
 import es.ewic.frontend.model.Reservation;
 import es.ewic.frontend.model.Shop;
 import es.ewic.frontend.util.DateUtils;
@@ -43,6 +44,10 @@ public class ControlBox {
 	private List<Reservation> reservations;
 	@Property
 	private Reservation reservation;
+	@Property
+	private String nEntries;
+	@Property
+	private String avgDuration;
 	@InjectComponent
 	private Zone activeShopArea;
 
@@ -94,6 +99,25 @@ public class ControlBox {
 
 		JSONArray reservatonsData = RequestUtils.getUpcomingReservations(idShop);
 		reservations = ModelConverter.jsonArrayToReservationList(reservatonsData);
+
+		JSONArray entriesData = RequestUtils.getDailyEntries(idShop);
+		List<Entry> dailyEntries = ModelConverter.jsonArrayToEntryList(entriesData);
+		if (dailyEntries.size() != 0) {
+			long durationCont = 0;
+			for (Entry entry : dailyEntries) {
+				durationCont += entry.getDuration();
+			}
+			long avg = durationCont / dailyEntries.size();
+			avgDuration = avg < 1 ? messages.get("entriesLessThan1") : avg + " m";
+		} else {
+			avgDuration = "0 m";
+		}
+
+		nEntries = Integer.toString(dailyEntries.size());
+
+		System.out.println();
+		System.out.println(entriesData.length());
+		System.out.println();
 
 		ajaxResponseRenderer.addRender(activeShopArea);
 	}

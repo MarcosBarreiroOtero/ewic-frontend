@@ -36,9 +36,7 @@
 								<h4>${message:location}: ${activeShop.location}</h4>
 							</div>
 							<div class="col-sm-6">
-								<h4>
-									${message:shopType}: <span class="${capacityColorClass}">${shopType}</span>
-								</h4>
+								<h4>${message:shopType}: ${shopType}</h4>
 							</div>
 							<div class="col-sm-6">
 								<h4>
@@ -55,6 +53,12 @@
 								<h4>
 									${message:capacity}: <span class="${capacityColorClass}">${capacityControlState}</span>
 								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>${message:dailyEntries}: ${nEntries}</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>${message:avgDuration}: ${avgDuration}</h4>
 							</div>
 						</div>
 						<div class="row">
@@ -74,7 +78,9 @@
 											<h4>${message:date}: ${reservationDate}</h4>
 										</div>
 										<div class="col-sm-3">
-											<h4>${message:state}: ${reservationState}</h4>
+											<h4>
+												${message:state}: <span class="text-success">${reservationState}</span>
+											</h4>
 										</div>
 										<div class="col-sm-12">
 											<h4>${message:remarks}: ${reservation.remarks}</h4>
