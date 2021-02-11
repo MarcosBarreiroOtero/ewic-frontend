@@ -16,11 +16,14 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import es.ewic.frontend.model.Entry;
 import es.ewic.frontend.model.Reservation;
 import es.ewic.frontend.model.Shop;
+import es.ewic.frontend.services.AuthenticationPolicy;
+import es.ewic.frontend.services.AuthenticationPolicyType;
 import es.ewic.frontend.util.DateUtils;
 import es.ewic.frontend.util.ModelConverter;
 import es.ewic.frontend.util.RequestUtils;
 import es.ewic.frontend.util.UserSession;
 
+@AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USER)
 public class ControlBox {
 
 	@Inject
@@ -114,10 +117,6 @@ public class ControlBox {
 		}
 
 		nEntries = Integer.toString(dailyEntries.size());
-
-		System.out.println();
-		System.out.println(entriesData.length());
-		System.out.println();
 
 		ajaxResponseRenderer.addRender(activeShopArea);
 	}

@@ -10,10 +10,13 @@ import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.apache.tapestry5.services.ComponentEventRequestFilter;
+import org.apache.tapestry5.services.PageRenderRequestFilter;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
 import org.slf4j.Logger;
 
 /**
@@ -29,6 +32,8 @@ public class AppModule {
 		// Use service builder methods (example below) when the implementation
 		// is provided inline, or requires more initialization than simply
 		// invoking the constructor.
+		binder.bind(PageRenderAuthenticationFilter.class);
+		binder.bind(ComponentEventAuthenticationFilter.class);
 	}
 
 	public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
@@ -53,6 +58,8 @@ public class AppModule {
 		// you can extend this list of locales (it's a comma separated series of locale
 		// names;
 		// the first locale name is the default when there's no reasonable match).
+//		configuration.add(SymbolConstants.CHARSET, "UTF-8");
+//		configuration.add("org.apache.tapestry.messages-encoding", "UTF-8");
 		configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en, es");
 
 		// You should change the passphrase immediately; the HMAC passphrase is used to
@@ -60,6 +67,49 @@ public class AppModule {
 		// the hidden field data stored in forms to encrypt and digitally sign
 		// client-side data.
 		configuration.add(SymbolConstants.HMAC_PASSPHRASE, "change this immediately");
+	}
+
+	/**
+	 * Contribute our {@link ComponentClassTransformWorker2} to transformation
+	 * pipeline to add our code to loaded classes
+	 *
+	 * @param configuration component class transformer configuration
+	 */
+	public static void contributeComponentClassTransformWorker(
+			OrderedConfiguration<ComponentClassTransformWorker2> configuration) {
+
+		configuration.add("AuthenticationPolicy", new AuthenticationPolicyWorker());
+
+	}
+
+	/**
+	 * Contributes "PageRenderAuthenticationFilter" filter which checks for access
+	 * rights of requests.
+	 */
+	public void contributePageRenderRequestHandler(OrderedConfiguration<PageRenderRequestFilter> configuration,
+			PageRenderRequestFilter pageRenderAuthenticationFilter) {
+
+		/*
+		 * Add filters to the filters pipeline of the PageRender command of the
+		 * MasterDispatcher service.
+		 */
+		configuration.add("PageRenderAuthenticationFilter", pageRenderAuthenticationFilter, "before:*");
+
+	}
+
+	/**
+	 * Contribute "PageRenderAuthenticationFilter" filter to determine if the event
+	 * can be processed and the user has enough rights to do so.
+	 */
+	public void contributeComponentEventRequestHandler(OrderedConfiguration<ComponentEventRequestFilter> configuration,
+			ComponentEventRequestFilter componentEventAuthenticationFilter) {
+
+		/*
+		 * Add filters to the filters pipeline of the ComponentEvent command of the
+		 * MasterDispatcher service.
+		 */
+		configuration.add("ComponentEventAuthenticationFilter", componentEventAuthenticationFilter, "before:*");
+
 	}
 
 	/**
