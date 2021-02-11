@@ -20,25 +20,25 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">${message:appName}</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"
+			style="justify-content: space-between;">
+			<a class="navbar-brand" href="#" style="margin-right:auto;">${message:appName}</a>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<t:if test="userSession">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">${userSession.seller.loginName} <span
-								class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#" t:type="ActionLink" t:id="logout">${message:logout}</a></li>
-							</ul></li>
-
-						<p:else>
-							<li><a href="#" t:type="PageLink" t:page="index">${message:logIn}</a></li>
-						</p:else>
-					</t:if>
-				</ul>
-			</div>
+			<t:if test="userSession">
+				<span class="navbar-text"><strong>
+						${message:welcome} ${userSession.seller.firstName}
+						${userSession.seller.lastName} </strong> </span>
+			</t:if>
+			<ul class="navbar-nav nav" style="margin-left:auto">
+				<t:if test="userSession">
+					<li><t:actionlink t:id="logout" t:async="true">
+								${message:logout}
+							</t:actionlink></li>
+					<p:else>
+						<li><a href="#" t:type="PageLink" t:page="index">${message:logIn}</a></li>
+					</p:else>
+				</t:if>
+			</ul>
 		</nav>
 	</div>
 	<div class="container-fluid">
