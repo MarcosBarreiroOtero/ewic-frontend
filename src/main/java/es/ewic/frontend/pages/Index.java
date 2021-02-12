@@ -65,6 +65,7 @@ public class Index {
 	}
 
 	void setupRender() {
+
 	}
 
 }

@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 
 import org.apache.tapestry5.json.JSONArray;
@@ -26,7 +27,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
@@ -61,7 +63,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
@@ -95,7 +98,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
@@ -129,7 +133,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
@@ -165,7 +170,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {

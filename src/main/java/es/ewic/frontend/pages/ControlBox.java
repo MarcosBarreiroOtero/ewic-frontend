@@ -85,8 +85,6 @@ public class ControlBox {
 
 	void setupRender() {
 		if (userSession != null) {
-			System.out.println(userSession == null);
-			System.out.println(userSession.getSeller().getIdSeller());
 			JSONArray shopsData = RequestUtils.getSellerShops(userSession.getSeller().getIdSeller());
 
 			shops = ModelConverter.jsonArrayToShopList(shopsData);
@@ -95,8 +93,6 @@ public class ControlBox {
 	}
 
 	void onActionFromClickShop(int idShop) {
-		System.out.println(idShop);
-
 		JSONObject shopData = RequestUtils.getShopById(idShop);
 		activeShop = ModelConverter.jsonToShop(shopData);
 
@@ -105,7 +101,7 @@ public class ControlBox {
 
 		JSONArray entriesData = RequestUtils.getDailyEntries(idShop);
 		List<Entry> dailyEntries = ModelConverter.jsonArrayToEntryList(entriesData);
-		if (dailyEntries.size() != 0) {
+		if (!dailyEntries.isEmpty()) {
 			long durationCont = 0;
 			for (Entry entry : dailyEntries) {
 				durationCont += entry.getDuration();
