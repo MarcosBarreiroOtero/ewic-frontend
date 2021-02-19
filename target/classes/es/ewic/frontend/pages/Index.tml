@@ -45,9 +45,12 @@
 					<div class=" row justify-content-center">
 						<div class="col-md-10" style="text-align: center">
 							<button class="btn waves-effect waves-light primary-color"
-								type="submit" name="action">
-								<strong>${message:login}</strong> <i
-									class="glyphicon glyphicon-log-in" style="margin-left: 10px;"></i>
+								type="submit" name="action" style="height: fit-content;">
+								<h4 class="accessOption">
+									<strong>${message:login}</strong> <i
+										class="glyphicon glyphicon-log-in"
+										style="margin-left: 10px; font-size: 2.3rem;"></i>
+								</h4>
 							</button>
 						</div>
 
