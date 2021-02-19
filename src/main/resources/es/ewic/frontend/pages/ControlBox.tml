@@ -4,7 +4,7 @@
 
 <style>
 h4 {
-	font-size: 3.5rem;
+	font-size: 2.5rem;
 }
 
 h3 {
@@ -15,7 +15,7 @@ h3 {
 	<div class="col-md-2">
 		<div class="panel panel-default">
 			<div class="panel-heading text-center primary-color">
-				<h3 class="accessOption">
+				<h3>
 					<strong>${message:myShops}</strong>
 				</h3>
 			</div>
@@ -24,8 +24,12 @@ h3 {
 					<div class="row justify-content-center ">
 						<div class="col-sm-11">
 							<t:actionlink t:id="clickShop" t:async="true"
-								context="shop.idShop" class="btn btn-block btn-outline-primary">
-								${shop.name}
+								style="height: fit-content; white-space: normal;"
+								context="shop.idShop"
+								class="btn btn-lg btn-block waves-effect waves-light primary-color">
+								<h4>
+									<strong>${shop.name}</strong>
+								</h4>
 							</t:actionlink>
 						</div>
 					</div>
@@ -38,7 +42,7 @@ h3 {
 			<t:if test="activeShop">
 				<div class="panel panel-default">
 					<div class="panel-heading text-center primary-color">
-						<h3 class="accessOption">
+						<h3>
 							<strong>${activeShop.name}</strong>
 						</h3>
 					</div>
