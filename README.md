@@ -11,5 +11,5 @@ Para poder instalar de forma correcta esta aplicación es necesario seguir los p
 
 ## Defensa
 
-Para la defensa deste TFM se utilizara el WAR ([ewyc-frontend.war](ewyc-frontend.war) ya configurado que se encuentra en el directorio raíz de este proyecto.
+Para la defensa deste TFM se utilizara el WAR ([ewyc-frontend.war](ewyc-frontend.war)) ya configurado que se encuentra en el directorio raíz de este proyecto.
 
