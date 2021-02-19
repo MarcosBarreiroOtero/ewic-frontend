@@ -2,15 +2,26 @@
 	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 
-<div class="row">
+<style>
+h4 {
+	font-size: 3.5rem;
+}
+
+h3 {
+	font-size: 4rem;
+}
+</style>
+<div class="row" style="margin-top: 10px;">
 	<div class="col-md-2">
 		<div class="panel panel-default">
-			<div class="panel-heading text-center">
-				<h3>${message:myShops}</h3>
+			<div class="panel-heading text-center primary-color">
+				<h3 class="accessOption">
+					<strong>${message:myShops}</strong>
+				</h3>
 			</div>
 			<div class="panel-body" style="overflow: auto; height: 75vh;">
 				<t:loop source="shops" value="shop">
-					<div class="row justify-content-center">
+					<div class="row justify-content-center ">
 						<div class="col-sm-11">
 							<t:actionlink t:id="clickShop" t:async="true"
 								context="shop.idShop" class="btn btn-block btn-outline-primary">
@@ -26,20 +37,26 @@
 		<t:zone t:id="activeShopArea" id="activeShopArea">
 			<t:if test="activeShop">
 				<div class="panel panel-default">
-					<div class="panel-heading text-center">
-						<h3>${activeShop.name}</h3>
+					<div class="panel-heading text-center primary-color">
+						<h3 class="accessOption">
+							<strong>${activeShop.name}</strong>
+						</h3>
 					</div>
 					<div class="panel-body" style="overflow: auto; height: 75vh;">
 						<div class="row justify-content-center">
 							<div class="col-sm-6">
-								<h4>${message:location}: ${activeShop.location}</h4>
-							</div>
-							<div class="col-sm-6">
-								<h4>${message:shopType}: ${shopType}</h4>
+								<h4>
+									<strong>${message:location}:</strong> ${activeShop.location}
+								</h4>
 							</div>
 							<div class="col-sm-6">
 								<h4>
-									${message:state}:
+									<strong>${message:shopType}:</strong> ${shopType}
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:state}:</strong>
 									<t:if test="activeShop.allowEntries">
 										<span class="text-success"> ${message:open} </span>
 										<p:else>
@@ -50,39 +67,57 @@
 							</div>
 							<div class="col-sm-6">
 								<h4>
-									${message:capacity}: <span class="${capacityColorClass}">${capacityControlState}</span>
+									<strong>${message:capacity}:</strong>&nbsp;<span
+										class="${capacityColorClass}">${capacityControlState}</span>
 								</h4>
 							</div>
 							<div class="col-sm-6">
-								<h4>${message:dailyEntries}: ${nEntries}</h4>
+								<h4>
+									<strong>${message:dailyEntries}:</strong> ${nEntries}
+								</h4>
 							</div>
 							<div class="col-sm-6">
-								<h4>${message:avgDuration}: ${avgDuration}</h4>
+								<h4>
+									<strong>${message:avgDuration}:</strong> ${avgDuration}
+								</h4>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12">
-								<h3>${message:upcomingReservations}</h3>
+								<h3>
+									<strong>${message:upcomingReservations}</strong>
+								</h3>
 							</div>
 							<div class="col-sm-12">
 								<t:loop source="reservations" value="reservation">
 									<div class="row justify-content-center">
 										<div class="col-sm-3">
-											<h4>${message:client}: ${reservation.clientName}</h4>
-										</div>
-										<div class="col-sm-3">
-											<h4>${message:nClients}: ${reservation.nClients}</h4>
-										</div>
-										<div class="col-sm-3">
-											<h4>${message:date}: ${reservationDate}</h4>
+											<h4>
+												<strong>${message:client}:</strong>
+												${reservation.clientName}
+											</h4>
 										</div>
 										<div class="col-sm-3">
 											<h4>
-												${message:state}: <span class="text-success">${reservationState}</span>
+												<strong>${message:nClients}:</strong>
+												${reservation.nClients}
+											</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:date}:</strong> ${reservationDate}
+											</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:state}:</strong>&nbsp;<span
+													class="text-success">${reservationState}</span>
 											</h4>
 										</div>
 										<div class="col-sm-12">
-											<h4>${message:remarks}: ${reservation.remarks}</h4>
+											<h4>
+												<strong>${message:remarks}:</strong> ${reservation.remarks}
+											</h4>
 										</div>
 									</div>
 									<hr />

@@ -1,5 +1,6 @@
 package es.ewic.frontend.components;
 
+import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Meta;
 import org.apache.tapestry5.annotations.Parameter;
@@ -19,6 +20,7 @@ import es.ewic.frontend.util.UserSession;
  */
 @Meta({ "org.apache.tapestry.output-encoding=UTF-8", "org.apache.tapestry.response-encoding=UTF-8",
 		"org.apache.tapestry.template-encoding=UTF-8", "tapestry.response-encoding=UTF-8" })
+@Import(stylesheet = "context:css/style.css")
 public class Layout {
 
 	@Property

@@ -4,6 +4,10 @@
 
 <meta charset="utf-8" />
 <title>${title}</title>
+
+<link rel="shortcut icon" type="image/x-icon"
+	href="${context:favicon.ico}" />
+
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
 
@@ -18,32 +22,48 @@
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
 
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+
 </head>
 <body>
-	<div class="container-fluid">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light"
-			style="justify-content: space-between;">
-			<a class="navbar-brand" href="#" style="margin-right: auto;">${message:appName}</a>
 
+	<ul id="dropdown1" class="dropdown-content">
+		<li><a href="#!">one</a></li>
+		<li><a href="#!">two</a></li>
+		<li class="divider"></li>
+		<li><a href="#!">three</a></li>
+	</ul>
+	<nav>
+		<div class="nav-wrapper primary-color">
+			<a href="#" class="brand-logo" style="margin-left: 20px;">${message:appName}</a>
 			<t:if test="userSession">
-				<span class="navbar-text"><strong>
-						${message:welcome} ${userSession.seller.firstName}
-						${userSession.seller.lastName} </strong> </span>
+				<span class="brand-logo center"> ${message:welcome}
+					${userSession.seller.firstName} ${userSession.seller.lastName}</span>
 			</t:if>
-			<ul class="navbar-nav nav" style="margin-left: auto">
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<t:if test="userSession">
-					<li><t:actionlink t:id="logout" t:async="true">
-															${message:logout}
-							</t:actionlink></li>
+					<li><t:actionlink t:id="logout" class="accessOption"
+							t:async="true">
+																${message:logout}
+								</t:actionlink></li>
+
 					<p:else>
-						<li><a href="#" t:type="PageLink" t:page="index">${message:logIn}</a></li>
+						<li><a href="#" t:type="PageLink" t:page="index"
+							class="accessOption">${message:logIn}</a></li>
 					</p:else>
 				</t:if>
 			</ul>
-		</nav>
-	</div>
+		</div>
+	</nav>
+
 	<div class="container-fluid">
 		<t:body />
 	</div>
+
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

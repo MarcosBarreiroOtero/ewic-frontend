@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
@@ -36,19 +34,11 @@ public class RequestUtils {
 				}
 				in.close();
 
-				JSONObject sellerData = new JSONObject(content.toString());
-				return sellerData;
+				return new JSONObject(content.toString());
 			}
 			con.disconnect();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// do nothing
 		}
 		return null;
 	}
@@ -72,19 +62,11 @@ public class RequestUtils {
 				}
 				in.close();
 
-				JSONArray shopsData = new JSONArray(content.toString());
-				return shopsData;
+				return new JSONArray(content.toString());
 			}
 			con.disconnect();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// do nothing
 		}
 		return null;
 	}
@@ -107,19 +89,11 @@ public class RequestUtils {
 				}
 				in.close();
 
-				JSONObject shopData = new JSONObject(content.toString());
-				return shopData;
+				return new JSONObject(content.toString());
 			}
 			con.disconnect();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// do nothing
 		}
 		return null;
 	}
@@ -142,19 +116,11 @@ public class RequestUtils {
 				}
 				in.close();
 
-				JSONArray reservationsData = new JSONArray(content.toString());
-				return reservationsData;
+				return new JSONArray(content.toString());
 			}
 			con.disconnect();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// do nothing
 		}
 		return null;
 	}
@@ -179,19 +145,11 @@ public class RequestUtils {
 				}
 				in.close();
 
-				JSONArray entriesData = new JSONArray(content.toString());
-				return entriesData;
+				return new JSONArray(content.toString());
 			}
 			con.disconnect();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// do nothing
 		}
 		return null;
 	}
