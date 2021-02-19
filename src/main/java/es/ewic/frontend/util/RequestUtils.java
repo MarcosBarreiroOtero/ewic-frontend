@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
 
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
@@ -25,7 +27,8 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
@@ -60,14 +63,14 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
 					content.append(inputLine);
 				}
 				in.close();
-				System.out.println(content.toString());
 
 				JSONArray shopsData = new JSONArray(content.toString());
 				return shopsData;
@@ -87,7 +90,6 @@ public class RequestUtils {
 	}
 
 	public static JSONObject getShopById(int idShop) {
-
 		try {
 			URL url = new URL(BASE_ENDPOINT + "/shop/" + idShop);
 
@@ -96,17 +98,89 @@ public class RequestUtils {
 			con.setRequestMethod("GET");
 
 			if (con.getResponseCode() == 200) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
 				StringBuffer content = new StringBuffer();
 				while ((inputLine = in.readLine()) != null) {
 					content.append(inputLine);
 				}
 				in.close();
-				System.out.println(content.toString());
 
 				JSONObject shopData = new JSONObject(content.toString());
 				return shopData;
+			}
+			con.disconnect();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static JSONArray getUpcomingReservations(int idShop) {
+		try {
+			URL url = new URL(BASE_ENDPOINT + "/reservation/seller/" + idShop);
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+
+			if (con.getResponseCode() == 200) {
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
+				String inputLine;
+				StringBuffer content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					content.append(inputLine);
+				}
+				in.close();
+
+				JSONArray reservationsData = new JSONArray(content.toString());
+				return reservationsData;
+			}
+			con.disconnect();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static JSONArray getDailyEntries(int idShop) {
+		try {
+			Calendar now = Calendar.getInstance();
+			URL url = new URL(
+					BASE_ENDPOINT + "/shop/" + idShop + "/dailyEntries?date=" + DateUtils.formatBackendDate(now));
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+
+			if (con.getResponseCode() == 200) {
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8));
+				String inputLine;
+				StringBuffer content = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					content.append(inputLine);
+				}
+				in.close();
+
+				JSONArray entriesData = new JSONArray(content.toString());
+				return entriesData;
 			}
 			con.disconnect();
 		} catch (MalformedURLException e) {

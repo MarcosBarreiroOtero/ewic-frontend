@@ -114,11 +114,15 @@
 							<name>tapestry.execution-mode</name>
 							<value>development</value>
 						</systemProperty>
+						<systemProperty>
+							<name>jetty.port</name>
+							<value>8085</value>
+						</systemProperty>
+						<systemProperty>
+							<name>org.eclipse.jetty.util.UrlEncoding.charset</name>
+							<value>UTF-8</value>
+						</systemProperty>
 					</systemProperties>
-					<httpConnector>
-						<!--host>localhost</host -->
-						<port>8085</port>
-					</httpConnector>
 				</configuration>
 			</plugin>
 		</plugins>

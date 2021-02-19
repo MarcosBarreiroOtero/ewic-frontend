@@ -2,22 +2,20 @@
 	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 
-
 <div class="row">
 	<div class="col-md-2">
 		<div class="panel panel-default">
 			<div class="panel-heading text-center">
 				<h3>${message:myShops}</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" style="overflow: auto; height: 75vh;">
 				<t:loop source="shops" value="shop">
 					<div class="row justify-content-center">
 						<div class="col-sm-11">
-							<button type="button" class="btn btn-block btn-outline-primary">
-								<t:actionlink t:id="clickShop" t:async="true"
-									context="shop.idShop">${shop.name}</t:actionlink>
-
-							</button>
+							<t:actionlink t:id="clickShop" t:async="true"
+								context="shop.idShop" class="btn btn-block btn-outline-primary">
+								${shop.name}
+							</t:actionlink>
 						</div>
 					</div>
 				</t:loop>
@@ -31,17 +29,13 @@
 					<div class="panel-heading text-center">
 						<h3>${activeShop.name}</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" style="overflow: auto; height: 75vh;">
 						<div class="row justify-content-center">
 							<div class="col-sm-6">
-								<h4>
-									${message:location}: <span class="${capacityColorClass}">${activeShop.location}</span>
-								</h4>
+								<h4>${message:location}: ${activeShop.location}</h4>
 							</div>
 							<div class="col-sm-6">
-								<h4>
-									${message:shopType}: <span class="${capacityColorClass}">${shopType}</span>
-								</h4>
+								<h4>${message:shopType}: ${shopType}</h4>
 							</div>
 							<div class="col-sm-6">
 								<h4>
@@ -58,6 +52,41 @@
 								<h4>
 									${message:capacity}: <span class="${capacityColorClass}">${capacityControlState}</span>
 								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>${message:dailyEntries}: ${nEntries}</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>${message:avgDuration}: ${avgDuration}</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<h3>${message:upcomingReservations}</h3>
+							</div>
+							<div class="col-sm-12">
+								<t:loop source="reservations" value="reservation">
+									<div class="row justify-content-center">
+										<div class="col-sm-3">
+											<h4>${message:client}: ${reservation.clientName}</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>${message:nClients}: ${reservation.nClients}</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>${message:date}: ${reservationDate}</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												${message:state}: <span class="text-success">${reservationState}</span>
+											</h4>
+										</div>
+										<div class="col-sm-12">
+											<h4>${message:remarks}: ${reservation.remarks}</h4>
+										</div>
+									</div>
+									<hr />
+								</t:loop>
 							</div>
 						</div>
 					</div>

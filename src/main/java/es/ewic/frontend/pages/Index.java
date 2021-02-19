@@ -14,10 +14,13 @@ import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import es.ewic.frontend.model.Seller;
+import es.ewic.frontend.services.AuthenticationPolicy;
+import es.ewic.frontend.services.AuthenticationPolicyType;
 import es.ewic.frontend.util.ModelConverter;
 import es.ewic.frontend.util.RequestUtils;
 import es.ewic.frontend.util.UserSession;
 
+@AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USER)
 public class Index {
 
 	@Inject
@@ -63,13 +66,6 @@ public class Index {
 
 	void setupRender() {
 
-	}
-
-	Object afterRender() {
-		if (userSession != null) {
-			return ControlBox.class;
-		}
-		return null;
 	}
 
 }

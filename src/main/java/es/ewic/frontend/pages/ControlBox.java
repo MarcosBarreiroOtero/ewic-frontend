@@ -13,11 +13,17 @@ import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
+import es.ewic.frontend.model.Entry;
+import es.ewic.frontend.model.Reservation;
 import es.ewic.frontend.model.Shop;
+import es.ewic.frontend.services.AuthenticationPolicy;
+import es.ewic.frontend.services.AuthenticationPolicyType;
+import es.ewic.frontend.util.DateUtils;
 import es.ewic.frontend.util.ModelConverter;
 import es.ewic.frontend.util.RequestUtils;
 import es.ewic.frontend.util.UserSession;
 
+@AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USER)
 public class ControlBox {
 
 	@Inject
@@ -37,6 +43,14 @@ public class ControlBox {
 
 	@Property
 	private Shop activeShop;
+	@Property
+	private List<Reservation> reservations;
+	@Property
+	private Reservation reservation;
+	@Property
+	private String nEntries;
+	@Property
+	private String avgDuration;
 	@InjectComponent
 	private Zone activeShopArea;
 
@@ -61,10 +75,16 @@ public class ControlBox {
 		return messages.get(activeShop.getType());
 	}
 
+	public String getReservationDate() {
+		return DateUtils.formatDateLong(reservation.getDate());
+	}
+
+	public String getReservationState() {
+		return messages.get(reservation.getState());
+	}
+
 	void setupRender() {
 		if (userSession != null) {
-			System.out.println(userSession == null);
-			System.out.println(userSession.getSeller().getIdSeller());
 			JSONArray shopsData = RequestUtils.getSellerShops(userSession.getSeller().getIdSeller());
 
 			shops = ModelConverter.jsonArrayToShopList(shopsData);
@@ -73,11 +93,26 @@ public class ControlBox {
 	}
 
 	void onActionFromClickShop(int idShop) {
-		System.out.println(idShop);
-
 		JSONObject shopData = RequestUtils.getShopById(idShop);
-
 		activeShop = ModelConverter.jsonToShop(shopData);
+
+		JSONArray reservatonsData = RequestUtils.getUpcomingReservations(idShop);
+		reservations = ModelConverter.jsonArrayToReservationList(reservatonsData);
+
+		JSONArray entriesData = RequestUtils.getDailyEntries(idShop);
+		List<Entry> dailyEntries = ModelConverter.jsonArrayToEntryList(entriesData);
+		if (!dailyEntries.isEmpty()) {
+			long durationCont = 0;
+			for (Entry entry : dailyEntries) {
+				durationCont += entry.getDuration();
+			}
+			long avg = durationCont / dailyEntries.size();
+			avgDuration = avg < 1 ? messages.get("entriesLessThan1") : avg + " m";
+		} else {
+			avgDuration = "0 m";
+		}
+
+		nEntries = Integer.toString(dailyEntries.size());
 
 		ajaxResponseRenderer.addRender(activeShopArea);
 	}
