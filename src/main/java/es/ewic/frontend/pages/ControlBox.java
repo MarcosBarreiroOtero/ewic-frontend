@@ -106,7 +106,10 @@ public class ControlBox {
 			for (Entry entry : dailyEntries) {
 				durationCont += entry.getDuration();
 			}
-			long avg = durationCont / dailyEntries.size();
+
+			float avg = (float) durationCont / dailyEntries.size();
+			avg = Math.round(avg);
+
 			avgDuration = avg < 1 ? messages.get("entriesLessThan1") : avg + " m";
 		} else {
 			avgDuration = "0 m";
