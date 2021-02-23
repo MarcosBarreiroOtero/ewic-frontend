@@ -1,59 +1,71 @@
 package es.ewic.frontend.pages;
 
-
-import org.apache.tapestry5.Block;
-import org.apache.tapestry5.EventContext;
-import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Log;
+import org.apache.tapestry5.Field;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.apache.tapestry5.services.HttpError;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
-import org.slf4j.Logger;
 
-import java.util.Date;
+import es.ewic.frontend.model.Seller;
+import es.ewic.frontend.services.AuthenticationPolicy;
+import es.ewic.frontend.services.AuthenticationPolicyType;
+import es.ewic.frontend.util.ModelConverter;
+import es.ewic.frontend.util.RequestUtils;
+import es.ewic.frontend.util.UserSession;
 
-/**
- * Start page of application apache-tapestry.
- */
+@AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USER)
 public class Index {
-    @Inject
-    private Logger logger;
 
-    @Inject
-    private AjaxResponseRenderer ajaxResponseRenderer;
+	@Inject
+	Messages messages;
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+	@Inject
+	private AlertManager alertManager;
 
-    @Property
-    @Inject
-    @Symbol(SymbolConstants.TAPESTRY_VERSION)
-    private String tapestryVersion;
+	@SessionState(create = false)
+	private UserSession userSession;
 
-    @Inject
-    private Block block;
+	@Property
+	private String username;
+	@Property
+	private String password;
 
-    // Handle call with an unwanted context
-    Object onActivate(EventContext eventContext) {
-        return eventContext.getCount() > 0 ?
-            new HttpError(404, "Resource not found") :
-                null;
-    }
+	@InjectComponent("username")
+	private Field usernameField;
+	@InjectComponent("password")
+	private Field passwordField;
+	@InjectComponent
+	private Form loginForm;
 
-    @Log
-    void onComplete() {
-        logger.info("Complete call on Index page");
-    }
+	void onValidateFromLoginForm() {
+		JSONObject sellerData = RequestUtils.loginSeller(username, password);
 
-    @Log
-    void onAjax() {
-        logger.info("Ajax call on Index page");
+		if (sellerData != null) {
+			Seller seller = ModelConverter.jsonToSeller(sellerData);
+			userSession = new UserSession();
+			userSession.setSeller(seller);
+		} else {
+			alertManager.alert(Duration.TRANSIENT, Severity.ERROR, messages.get("error-login"));
+			loginForm.recordError(usernameField, messages.get("error-login"));
+			loginForm.recordError(passwordField, messages.get("error-login"));
+		}
+	}
 
-        ajaxResponseRenderer.addRender("middlezone", block);
-    }
+	Object onSuccessFromLoginForm() {
 
-    public Date getCurrentTime() {
-        return new Date();
-    }
+		return ControlBox.class;
+	}
+
+	void setupRender() {
+
+	}
 
 }

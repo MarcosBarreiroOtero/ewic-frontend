@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.ewic</groupId>
 	<artifactId>ewic-frontend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>ewic</name>
 	<packaging>war</packaging>
 
@@ -114,11 +114,15 @@
 							<name>tapestry.execution-mode</name>
 							<value>development</value>
 						</systemProperty>
+						<systemProperty>
+							<name>jetty.port</name>
+							<value>8085</value>
+						</systemProperty>
+						<systemProperty>
+							<name>org.eclipse.jetty.util.UrlEncoding.charset</name>
+							<value>UTF-8</value>
+						</systemProperty>
 					</systemProperties>
-					<httpConnector>
-						<!--host>localhost</host -->
-						<port>8085</port>
-					</httpConnector>
 				</configuration>
 			</plugin>
 		</plugins>

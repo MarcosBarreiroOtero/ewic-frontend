@@ -1,0 +1,144 @@
+<html t:type="layout" title="appName"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+
+<style>
+h4 {
+	font-size: 2.5rem;
+}
+
+h3 {
+	font-size: 4rem;
+}
+</style>
+<div class="row" style="margin-top: 10px;">
+	<div class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-heading text-center primary-color">
+				<h3>
+					<strong>${message:myShops}</strong>
+				</h3>
+			</div>
+			<div class="panel-body" style="overflow: auto; height: 75vh;">
+				<t:loop source="shops" value="shop">
+					<div class="row justify-content-center ">
+						<div class="col-sm-11">
+							<t:actionlink t:id="clickShop" t:async="true"
+								style="height: fit-content; white-space: normal;"
+								context="shop.idShop"
+								class="btn btn-lg btn-block waves-effect waves-light primary-color">
+								<h4>
+									<strong>${shop.name}</strong>
+								</h4>
+							</t:actionlink>
+						</div>
+					</div>
+				</t:loop>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<t:zone t:id="activeShopArea" id="activeShopArea">
+			<t:if test="activeShop">
+				<div class="panel panel-default">
+					<div class="panel-heading text-center primary-color">
+						<h3>
+							<strong>${activeShop.name}</strong>
+						</h3>
+					</div>
+					<div class="panel-body" style="overflow: auto; height: 75vh;">
+						<div class="row justify-content-center">
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:location}:</strong> ${activeShop.location}
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:shopType}:</strong> ${shopType}
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:state}:</strong>
+									<t:if test="activeShop.allowEntries">
+										<span class="text-success"> ${message:open} </span>
+										<p:else>
+											<span class="text-danger"> ${message:closed} </span>
+										</p:else>
+									</t:if>
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:capacity}:</strong>&nbsp;<span
+										class="${capacityColorClass}">${capacityControlState}</span>
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:dailyEntries}:</strong> ${nEntries}
+								</h4>
+							</div>
+							<div class="col-sm-6">
+								<h4>
+									<strong>${message:avgDuration}:</strong> ${avgDuration}
+								</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<h3>
+									<strong>${message:upcomingReservations}</strong>
+								</h3>
+							</div>
+							<div class="col-sm-12">
+								<t:loop source="reservations" value="reservation">
+									<div class="row justify-content-center">
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:client}:</strong>
+												${reservation.clientName}
+											</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:nClients}:</strong>
+												${reservation.nClients}
+											</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:date}:</strong> ${reservationDate}
+											</h4>
+										</div>
+										<div class="col-sm-3">
+											<h4>
+												<strong>${message:state}:</strong>&nbsp;<span
+													class="text-success">${reservationState}</span>
+											</h4>
+										</div>
+										<div class="col-sm-12">
+											<h4>
+												<strong>${message:remarks}:</strong> ${reservation.remarks}
+											</h4>
+										</div>
+									</div>
+									<hr />
+								</t:loop>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p:else>
+					<div class="row justify-content-center">
+						<h4 class="text-center">${message:clickShopMessage}</h4>
+					</div>
+				</p:else>
+			</t:if>
+		</t:zone>
+	</div>
+</div>
+
+</html>

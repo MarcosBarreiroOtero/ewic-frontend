@@ -1,46 +1,64 @@
-<html t:type="layout" title="apache-tapestry Index"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
-        >
+<html t:type="layout" title="appName"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 
-    <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
 
-    <!-- Main hero unit for a primary marketing message or call to action -->
-    <div class="hero-unit">
-        <p>
-            <img src="${asset:context:images/tapestry.png}"
-                 alt="${message:greeting}" title="${message:greeting}"/>
-        </p>
-        <h3>${message:greeting}</h3>
-        <p>The current time is: <strong>${currentTime}</strong></p>
-        <p>
-            This is a template for a simple marketing or informational website. It includes a large callout called
-            the hero unit and three supporting pieces of content. Use it as a starting point to create something
-            more unique.
-        </p>
-        <p><t:actionlink t:id="learnmore" class="btn btn-primary btn-large">Learn more &raquo;</t:actionlink></p>
-    </div>
+<div class="row justify-content-center">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-header text-center primary-color">
+				<h4 class="accessOption">
+					<strong>${message:login}</strong>
+				</h4>
+			</div>
+			<div class="card-body">
+				<t:form t:id="loginForm" t:async="true">
+					<div class="form-group row">
+						<div class="col-md-12">
+							<t:alerts showDismissAll="false" />
+						</div>
+					</div>
 
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="span4">
-            <h2>Normal link</h2>
-            <p>Clink the bottom link and the page refresh with event <code>complete</code></p>
-            <p><t:eventlink event="complete" class="btn btn-default">Complete&raquo;</t:eventlink></p>
-        </div>
-        <t:zone t:id="middlezone" class="span4">
+					<div class="form-group row justify-content-center">
+						<div class="col-md-10">
+							<div class="input-field s10">
+								<i class="material-icons prefix"> <span
+									class="glyphicon glyphicon-user icon-primary-color"></span></i> <input
+									t:type="TextField" t:id="username" type="text" id="username"
+									class="form-control" required="true" autofocus="true" /><label
+									for="username">${message:username}</label>
+							</div>
+						</div>
+					</div>
 
-        </t:zone>
-        <div class="span4">
-            <h2>Ajax link</h2>
-            <p>Click the bottom link to update just the middle column with Ajax call with event <code>ajax</code></p>
-            <p><t:eventlink event="ajax" zone="middlezone" class="btn btn-default">Ajax&raquo;</t:eventlink></p>
-        </div>
-    </div>
+					<div class="form-group row justify-content-center">
+						<div class="col-md-10">
+							<div class="input-field s10">
+								<i class="material-icons prefix"> <span
+									class="glyphicon glyphicon-lock icon-primary-color"></span></i> <input
+									t:type="TextField" t:id="password" type="password"
+									id="password" class="form-control" required="true" /><label
+									for="password">${message:password}</label>
+							</div>
+						</div>
+					</div>
 
-    <t:block t:id="block">
-        <h2>Ajax updated</h2>
-        <p>I'v been updated through AJAX call</p>
-        <p>The current time is: <strong>${currentTime}</strong></p>
-    </t:block>
+					<div class=" row justify-content-center">
+						<div class="col-md-10" style="text-align: center">
+							<button class="btn waves-effect waves-light primary-color"
+								type="submit" name="action" style="height: fit-content;">
+								<h4 class="accessOption">
+									<strong>${message:login}</strong> <i
+										class="glyphicon glyphicon-log-in"
+										style="margin-left: 10px; font-size: 2.3rem;"></i>
+								</h4>
+							</button>
+						</div>
+
+					</div>
+				</t:form>
+			</div>
+		</div>
+	</div>
+</div>
 
 </html>
