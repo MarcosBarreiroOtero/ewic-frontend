@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.ewic</groupId>
 	<artifactId>ewic-frontend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>ewic</name>
 	<packaging>war</packaging>
 
